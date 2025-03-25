@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Tiếp Thị Liên Kết</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Danh sách sản phẩm</h1>
+    <div id="product-list"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+}
+
+.product img {
+    width: 100%;
+}
+
+.product a {
+    display: block;
+    margin-top: 10px;
+    background: blue;
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+}
+[
+    {
+        "name": "Áo thể thao Adidas",
+        "image": "adidas-shirt.jpg",
+        "price": "500,000 VND",
+        "link": "https://shopee.vn/adidas-shirt"
+    },
+    {
+        "name": "Giày Nike Air Max",
+        "image": "nike-shoes.jpg",
+        "price": "2,000,000 VND",
+        "link": "https://lazada.vn/nike-air-max"
+    }
+]
+fetch("products.json")
+    .then(response => response.json())
+    .then(products => {
+        let productList = document.getElementById("product-list");
+        products.forEach(product => {
+            let div = document.createElement("div");
+            div.className = "product";
+            div.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.price}</p>
+                <a href="${product.link}" target="_blank">Mua ngay</a>
+            `;
+            productList.appendChild(div);
+        });
+    });
+    
